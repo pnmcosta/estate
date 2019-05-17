@@ -1,0 +1,454 @@
+<div data-jc="form__common.form__icon:file-text-o;if:properties-form;width:1500;reload:propertiesform/show;submit:propertiesform/submit;autofocus:true"
+ class="hidden">
+	<div class="padding" style="padding-bottom:10px">
+		<div class="row">
+			<div class="col-md-4 m">
+				<div data-jc="textbox__properties.form.name__required:true">@(Name)</div>
+				<div class="mt10">
+
+					<div data-jc="checkbox__properties.form.ispublished" class="inline b mr10">@(Is published)</div>
+					<div data-jc="checkbox__properties.form.isfeatured" class="inline mr10">@(Mark as <b>FEATURED</b>)</div>
+					<div data-jc="checkbox__properties.form.isnew" class="inline ">@(New in the directory)</div>
+				</div>
+			</div>
+			<div class="col-md-2 m">
+				<div data-jc="textbox__properties.form.reference__maxlength:20;align:center;icon:braille">@(Custom
+					reference)</div>
+			</div>
+			<div class="col-md-3 m">
+				<div data-jc="dropdown__properties.form.status__datasource:common.dependencies.properties.status;icon:folder-o;empty:;required:true">@(Status)</div>
+				<div class="mt10">
+					<div data-jc="checkbox__properties.form.isonoffer" class="inline">@(Is under offer)</div>
+				</div>
+			</div>
+			<div class="col-md-3 m">
+				<div data-jc="dropdown__properties.form.template__datasource:common.dependencies.properties.templates;empty:;icon:paint-brush">@(Template)</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="cmseditor" data-jc="cmseditor__properties.form.body" data-jc-import="[url]components/cmseditor.html"
+	 data-bind="properties.form.template__show:value"></div>
+	<div class="backups hidden hidden-xs bg-smoke" data-bind="properties.form.id__show:!!value">
+		<div class="hidden" data-bind="properties.form.lockedcontent__show:!value">
+			<a href="javascript:void(0)" class="exec inline green" data-exec="cmseditor.instance.editCSS"><i class="fa fa-paint-brush mr5"></i>@(Edit
+				page styles)</a>
+		</div>
+		<div class="hidden" data-bind="properties.form.lockedcontent__show:!value">
+			<a href="javascript:void(0)" class="exec inline" data-exec="propertiesform/backups"><i class="fa fa-clock-o mr5"></i>@(Restore
+				a backup)</a>
+		</div>
+		<a href="javascript:void(0)" data-bind="properties.form.url__href:propertiesform/preview" target="_blank" class="mr10"
+		 style="float:right" title="@(Show property)"><i class="fa fa-search mr5"></i>@(Show)</a>
+	</div>
+	<div class="col-md-6 bg-yellow np">
+		<div class="padding">
+			<div data-jc="dropdown__properties.form.location__datasource:common.dependencies.properties.locations;empty:;value:name;icon:map-marker"
+			 class="m">@(Choose existing location)</div>
+			<div data-jc="textbox__properties.form.location__required:true;maxlength:500;placeholder:@(State / City / Street)">@(Location)</div>
+			<div class="help">@(Locations are created automatically by splitting <code>/</code> forward slash char.)</div>
+		</div>
+	</div>
+	<div class="col-md-6 bg-smoke np">
+		<div class="padding">
+			<div data-jc="dropdown__properties.form.type__datasource:common.dependencies.properties.types;empty:;icon:folder-o"
+			 class="m">@(Choose existing type)</div>
+			<div data-jc="textbox__properties.form.type__required:true;maxlength:50">@(Type)</div>
+			<div class="help">&nbsp;</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<hr class="nmt">
+	<div class="padding">
+		<div class="row">
+			<div class="col-md-6 m">
+				<div data-jc="textarea__properties.form.description__height:86;maxlength:1000">@(Simple
+					description)</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-sm-6 m">
+						<div data-jc="textbox__properties.form.bedrooms__type:number;align:center;icon:bed;increment:true">@(Bedrooms)</div>
+					</div>
+					<div class="col-sm-6 m">
+						<div data-jc="textbox__properties.form.bathrooms__type:number;align:center;icon:bath;increment:true">@(Bathrooms)</div>
+					</div>
+					<div class="col-sm-6 m">
+						<div data-jc="textbox__properties.form.receptions__type:number;align:center;icon:tv;increment:true">@(Receptions)</div>
+					</div>
+					<div class="col-sm-6 m">
+						<div data-jc="textbox__properties.form.floors__type:number;align:center;icon:building;increment:true">@(Floors)</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+
+		<div class="row">
+			<div class="col-md-6 m">
+				<div data-jc="textboxtags__properties.form.features__height:92;uppercase:false;icon:check">@(Property features)</div>
+			</div>
+			<div class="col-md-6 m">
+				<div data-jc="keyvalue__properties.form.descriptors__icon:sticky-note;placeholderkey:@(A property name);placeholdervalue:@(Type a value and press enter)__{}">@(Additional
+					descriptors)</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="bg-yellow padding">
+		<h4 class="nmt"><i class="fa fa-dollar mr5"></i>@(Property prices)</h4>
+		<div class="row">
+			<div class="col-md-2 col-sm-3 m">
+				<div data-jc="textbox__properties.form.priceprefix__maxlength:30;align:center;placeholder:@(Start from)">@(Price
+					Prefix)</div>
+			</div>
+			<div data-jc="propertiesprices__properties.form.prices__datasource:common.dependencies.properties.currencies;required:false">
+				<script type="text/html">
+					<div class="col-md-2 col-sm-3 m">
+						<div data-jc="textbox__{{ path }}__align:center;type:number;required:{{ required }}">@(Price in {{currency}})</div>
+					</div>
+				</script>
+			</div>
+
+			<div class="col-md-2 col-sm-3 m">
+				<div data-jc="textbox__properties.form.pricelabel__maxlength:30;align:center;placeholder:@(/month)">@(Price
+					Label)</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2 col-sm-3 col-md-offset-2 col-sm-offset-3 m">
+				<div data-jc="checkbox__properties.form.ispriceonrequest" class="inline b mr10">@(Price on request)</div>
+			</div>
+		</div>
+	</div>
+	<br />
+	<div class="col-md-6 np">
+		<div class="padding">
+			<h4 class="nmt">@(Property contact)</h4>
+			<div class="row">
+				<div class="col-sm-6 m">
+					<div data-jc="textbox__properties.form.contact.name">@(Name)</div>
+				</div>
+				<div class="col-sm-6 m">
+					<div data-jc="textbox__properties.form.contact.phone">@(Phone)</div>
+				</div>
+			</div>
+			<br />
+			<div data-jc="textbox__properties.form.contact.email__type:email;icon:envelope-o;maxlength:120">@(Email)</div>
+			<div class="help">@(Property contact is private and only accessible to admins.)</div>
+		</div>
+	</div>
+	<div class="col-md-6 np">
+		<div class="padding">
+			<h4 class="nmt">@(Property agent)</h4>
+			<div class="row">
+				<div class="col-sm-6 m">
+					<div data-jc="textbox__properties.form.agent.name">@(Name)</div>
+				</div>
+				<div class="col-sm-6 m">
+					<div data-jc="textbox__properties.form.agent.phone">@(Phone)</div>
+				</div>
+			</div>
+			<br />
+			<div data-jc="textbox__properties.form.agent.email__type:email;icon:envelope-o;maxlength:120">@(Email)</div>
+			<div class="help">@(Property agent is the contact shown publicly.)</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<hr class="nmt" />
+	<div class="padding">
+		<div class="row" data-bind="properties.form.pictures__!hide:value.length >= 4">
+			<div class="col-md-4 col-md-offset-4 m mt10">
+				<button class="button button-small b exec" data-exec="propertiesform/upload"><i class="fa fa-camera"></i>@(Upload
+					photos)</button>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div data-jc="pictures2__properties.form.pictures"></div>
+		</div>
+	</div>
+	<div data-bind="properties.form.id__show:value && value.length" class="hidden">
+		<hr class="nmt" />
+		<div class="padding">
+			<div class="row">
+				<div class="col-lg-2 col-md-3 m">
+					<div class="keyvalue">
+						<div class="key">@(# Id)</div>
+						<div class="value" data-bind="properties.form.id__html:value"></div>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-3 m">
+					<div class="keyvalue">
+						<div class="key"><i class="fa fa-calendar"></i>@(Created)</div>
+						<div class="value" data-bind="properties.form.datecreated__html:Thelpers.time(value)"></div>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-3 m">
+					<div class="keyvalue">
+						<div class="key"><i class="fa fa-calendar"></i>@(Updated)</div>
+						<div class="value" data-bind="properties.form.dateupdated__html:value ? Thelpers.time(value) : '@(unchanged)'"></div>
+					</div>
+				</div>
+				<div class="col-lg-6 m" data-bind="properties.form.stats__show:value">
+					<div data-jc="nosqlcounter__properties.form.stats__height:52"></div>
+					<div class="help"><i class="fa fa-chart-bar"></i>@(Stats of all views for the last period)</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div data-jc="error__properties.form.response"></div>
+	<div class="ui-form-buttons" data-jc="validation__properties.form">
+		<button name="cancel">@(Cancel)</button>
+		<button name="submit">@(SAVE)</button>
+	</div>
+</div>
+
+<script>
+
+	PLUGIN('propertiesform', function(exports) {
+
+		exports.scope = 'properties';
+
+
+		exports.preview = function(value) {
+			return value + (properties.form && properties.form.draft ? '?DRAFT=1' : '');
+		};
+
+		exports.show = function(com) {
+
+			var model = properties.form;
+			var items = properties.list;
+
+			com.reconfigure({
+				title: model.id ? '@(Edit property)' : '@(New property)'
+			});
+
+
+			WAIT('cmseditor.instance', function() {
+				cmseditor.instance.setWidgetOptions(model.widgets);
+			});
+
+			if (model.id && !model.ispriceonrequest) {
+				SET('properties.form.ispriceonrequest', model.ispriceonrequest);
+			}
+			model.id && (model.ispublished2 = model.ispublished);
+			model.id && AJAX('GET [url]api/{0}/{1}/stats/'.format(exports.scope, model.id), exports.scope + '.form.stats');
+			SETTER('loading', 'hide', 1000);
+		};
+
+		exports.submit = function(com) {
+
+			var model = CLONE(properties.form);
+			var editor = cmseditor.instance;
+
+			//model.pictures = editor.getPictures();
+			model.body = editor.getContent().replace(/(\r)?\n[\s\t]+(\r)?\n/g, '\n');
+
+			var w = editor.getWidgets();
+			model.widgets = w.settings;
+			model.bodywidgets = w.widgets;
+
+			model.stats = undefined;
+			model.css = cmseditor.css;
+
+			if (model.descriptors && model.descriptors.length) {
+				var tmp = [];
+				Object.keys(model.descriptors).forEach(function(key) {
+					tmp.push({ name: key, value: properties.form.descriptors[key] });
+				});
+				model.descriptors = tmp;
+			}
+
+			SETTER('loading', 'show');
+			AJAX('POST [url]api/{0}/ REPEAT'.format(exports.scope), model, function(response) {
+				SETTER('loading', 'hide', 1000);
+				if (response.success) {
+					SETTER('snackbar', 'success', '@(Property has been saved successfully.)');
+
+					if (com && !(com instanceof jQuery))
+						com.hide();
+
+					EXEC('properties/refresh');
+
+				} else if ((response instanceof Array) && response.length) {
+					var builder = [];
+					for (var i = 0, length = response.length; i < length; i++)
+						builder.push(response[i].error);
+					INVALID(exports.scope + '.form.name');
+					SETTER('snackbar', 'warning', builder.join(''));
+				} else {
+					SETTER('snackbar', 'warning', '@(Unknown error has occurred, please try again.)');
+				}
+			});
+		};
+
+		exports.backups = function(el) {
+
+			SETTER('loading', 'show');
+			AJAX('GET [url]api/{0}/{1}/backups/'.format(exports.scope, GET('properties.form.id')), function(response) {
+
+				SETTER('loading', 'hide', 1000);
+
+				for (var i = 0, length = response.length; i < length; i++) {
+					var item = response[i];
+					item.name = '{0} <b class="badge badge-blue ml5"><i class="fa fa-user mr5"></i>{1}</b>'.format(item.date.format(
+						'@(dd. MMM yyyy - HH:mm)'), item.user);
+				}
+
+				response.quicksort('date', false);
+
+				SETTER('suggestion', 'show', 'left', el, response, function(value) {
+					SETTER('loading', 'show');
+					setTimeout(function() {
+						cmseditor.instance.replace(value.data.body);
+						SETTER('loading', 'hide', 1000);
+					}, 100);
+				});
+			});
+		};
+
+		exports.upload = function() {
+			SET('common.form2', 'picture-crop');
+			var m = properties.form;
+			var title = [(((m.reference || '') + ' ' + (m.name || '')).trim() || 'Property Image'), m.pictures ? m.pictures.length + 1 : 1].filter(Boolean).join(' ').trim();
+			EXEC(true, 'picturecrop/upload', 750, 581, title, function(file) {
+				if (!file) return;
+
+				var filename = file.substring(file.lastIndexOf('/') + 1);
+				PUSH('properties.form.pictures', filename);
+				UPDATE('properties.form.pictures', true);
+			});
+		};
+
+
+		WATCH('properties.form.template', function(path, value, type) {
+
+			if (type === 2) {
+				cmseditor.instance.reconfigure('template:' + value);
+				cmseditor.instance.set('');
+			}
+
+		}, true);
+
+	});
+
+
+	COMPONENT('propertiesprices', function(self, config) {
+
+		var template, skip = false,
+			tmp = 'propertiesprices.form',
+			init = true;
+
+		self.tmppath = function(name) {
+			return tmp + name;
+		};
+
+		self.validate = function(value) {
+
+			if (!config.required)
+				return true;
+			if (!value || !value.length)
+				return false;
+
+			var currencies = self.get(config.datasource);
+			if (!currencies || value.length !== currencies.length) return false;
+
+			var empty = value.findItem('price', null);
+			return !empty;
+		};
+
+		self.make = function() {
+
+			var el = self.find('script');
+			template = Tangular.compile(el.html());
+			el.remove();
+			init = false;
+		};
+
+		self.configure = function(name, value) {
+			switch (name) {
+				case 'datasource':
+					self.datasource(value, self.rebind);
+					break;
+			}
+		};
+
+		self.rebind = function(path, value) {
+			if (!value.length) {
+				self.empty();
+				return;
+			}
+
+
+			var builder = [];
+			for (var i = 0, length = value.length; i < length; i++) {
+				var key = value[i];
+				builder.push(template({
+					currency: key,
+					path: self.tmppath('.' + key),
+					required: config.required
+				}));
+			}
+
+			self.html(builder.join(''));
+
+			COMPILE();
+
+			self.refresh();
+			self.validate2();
+		};
+
+		self.setter = function(value) {
+			if (skip) {
+				skip = false;
+				return;
+			}
+
+			if (!value)
+				value = EMPTYARRAY;
+
+			SET(tmp, {});
+			for (var i = 0, length = value.length; i < length; i++) {
+				var item = value[i];
+				SET(self.tmppath('.' + item.currency), item.price);
+			}
+		};
+
+		WATCH(tmp, function(path, value, type) {
+			if (init || type != 2) return;
+			var currencies = self.get(config.datasource);
+			if (!currencies) return;
+
+			// get the currency key being updated
+			var arr = path.split('.');
+			var key = arr[arr.length - 1];
+			if (currencies.indexOf(key) == -1)
+				return;
+
+			// update values on self.path
+			var values = self.get() || [];
+			var current = values.findIndex('currency', key);
+			var price = value[key] || null;
+			if (price && current == -1) {
+				values.push({
+					currency: key,
+					price
+				});
+			} else if (price) {
+				values[current].price = price;
+			} else if (current > -1) {
+				values.splice(current, 1);
+			}
+
+			skip = true;
+			self.set(values);
+		}, true);
+	});
+
+	WATCH('properties.form.ispriceonrequest', function(path, value, type) {
+		RECONFIGURE('propertiesprices', { required: !value, datasource: 'common.dependencies.properties.currencies' });
+	});
+
+
+</script>

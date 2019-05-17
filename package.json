@@ -1,0 +1,24 @@
+{
+  "name": "estate",
+  "version": "1.0.0",
+  "description": "Total.js CMS bundle to manage real estate properties.",
+  "main": "release.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pnmcosta/estate"
+  },
+  "dependencies": {
+    "total.js": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cms",
+    "real estate",
+    "properties",
+    "wishlist"
+  ],
+  "author": "Pedro Maia Costa",
+  "license": "MIT"
+}

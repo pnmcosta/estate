@@ -1,0 +1,43 @@
+<script total>
+	exports.group = 'admin';
+	exports.install = function() {
+		// MODEL: /schemas/properties.js
+		ROUTE('GET     #admin/api/properties/                          *Property --> @query', ['&admin', 'id:properties']);
+		ROUTE('GET     #admin/api/properties/{id}/                     *Property --> @read', ['&admin', 'id:properties']);
+		ROUTE('POST    #admin/api/properties/                          *Property --> @unique @save (response)', ['&admin', 'id:properties']);
+		ROUTE('DELETE  #admin/api/properties/                          *Property --> @remove', ['&admin', 'id:properties']);
+		ROUTE('GET     #admin/api/properties/toggle/                   *Property --> @toggle', ['&admin', 'id:properties']);
+		ROUTE('GET     #admin/api/properties/dependencies/             *Property --> @dependencies', ['&admin', 'id:properties']);
+		ROUTE('GET     #admin/api/properties/stats/                    *Property --> @stats', ['&admin', 'id:properties']);
+		ROUTE('GET     #admin/api/properties/{id}/stats/               *Property --> @stats', ['&admin', 'id:properties']);
+		ROUTE('GET     #admin/api/properties/{id}/backups/             *Common --> @backup', ['&admin', 'id:properties']);
+
+		ROUTE('GET     #admin/api/properties/settings/                *PropertySettings --> @read', ['&admin', 'id:properties']);
+		ROUTE('POST    #admin/api/properties/settings/                *PropertySettings --> @save', ['&admin', 'id:properties']);
+
+	};
+	
+	exports.uninstall = function() {
+		UNINSTALL('route', 'id:properties');
+	};
+
+</script>
+
+<script>
+	WAIT('common.nav', function() {
+		var item = {
+			role: 'Properties',
+			title: 'Properties',
+			url: '/admin/properties/',
+			value: 'properties',
+			icon: 'home'
+		};
+		ROUTE(item.url, function() {
+			EMIT('page', item);
+			SET('common.page', item.value);
+		});
+		common.nav.splice(3, 0, item);
+		ENV('roles', ENV('roles') + ',Properties');
+	});
+</script>
+<div data-jc="part__common.page__if:properties;url:/admin/pages/properties.html;reload:properties/reload;cleaner:10"></div>

@@ -1,0 +1,70 @@
+<div data-jc="form__common.form2__icon:picture-o;if:picture-crop;title:@(Picture crop);width:900;submit:picturecrop/submit;cancel:picturecrop/cancel"
+ class="hidden">
+	<div class="padding">
+		<div data-jc="crop2__picturecrop.crop.url__width:200;height:100" data-jc-id="picturecrop"></div>
+	</div>
+	<div class="ui-form-buttons" data-jc="validation__picturecrop.crop">
+		<button name="cancel">@(Cancel)</button>
+		<button name="submit">@(APPLY)</button>
+	</div>
+</div>
+
+<script>
+
+	PLUGIN('picturecrop', function(exports) {
+		var background = '#411f1f';
+		var _callback;
+		exports.upload = function(width, height, title, callback) {
+			!width && (width = 600);
+			!height && (height = 400);
+			SET('picturecrop.crop.url', null);
+			UPDATE('picturecrop.crop', true);
+			RECONFIGURE('crop2', 'width:{0};height:{1};background:{2}'.format(width, height, background));
+			SET('picturecrop.crop.title', title);
+			_callback = callback;
+			FIND('#picturecrop', function(cropper) {
+				cropper.clear();
+				cropper.find('input').trigger('click');
+			});
+		};
+
+		exports.cancel = function() {
+			SET('picturecrop.crop.url', null);
+			var cropper = FIND('#picturecrop');
+			cropper.clear();
+			SET('picturecrop.crop.title', null);
+			_callback = null;
+		};
+
+		exports.submit = function(com) {
+
+			var cropper = FIND('#picturecrop');
+
+			// Is the picture changed?
+			if (cropper.dirty()) {
+				com.hide();
+				return;
+			}
+
+			var data = cropper.output();
+			SETTER('loading', 'show');
+
+			AJAX('POST [url]api/upload/base64/', { file: data, name: (picturecrop.crop.title || 'Picture Crop').slug() }, function(response, err) {
+
+				SETTER('loading', 'hide', 500);
+
+				if (err) {
+					SETTER('snackbar', 'warning', err.toString());
+					return;
+				}
+				response && _callback && _callback(response);
+				SET('picturecrop.crop.title', null);
+				_callback = null;
+				setTimeout(com.hide, 1000);
+			});
+		};
+
+
+	});
+
+</script>
