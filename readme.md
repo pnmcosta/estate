@@ -4,7 +4,6 @@
 
 This incremental bundle for Total.js CMS includes the ability to manage properties.
 
-- [__HelpDesk with professional support__](https://helpdesk.totaljs.com)
 This bundle requires the Total.js CMS, an example setup is available at https://github.com/pnmcosta/estatebundle.
 
 ---
